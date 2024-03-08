@@ -40,8 +40,8 @@ const Checkout = ({cartItems, total, dispatch}) => {
       <div className="flex items-center justify-around">
         <h4 className="font-bold">Total: <span>${total}</span></h4>
           <div className="checkout-buttons">
-          <button className="bg-red-400 hover:bg-red-700 text-white font-bold py-2 px-4 m-4 rounded ml-auto" onClick={handleReset}>Reset</button>
-          <button className="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ml-auto">Order</button>
+          <button className="bg-red-400 hover:bg-red-700 focus:bg-red-800 text-white font-bold py-2 px-4 m-4 rounded ml-auto" onClick={handleReset}>Reset</button>
+          <button className="bg-green-400 hover:bg-green-700 focus:bg-green-800 text-white font-bold py-2 px-4 rounded ml-auto">Order</button>
         </div>
       </div>
     </div>

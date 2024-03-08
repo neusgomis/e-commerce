@@ -58,7 +58,7 @@ const Menu = ({ dispatch }) => {
                 <p className="mr-2 text-lg font-semibold text-red-800 dark:text-white">${item.price}</p>
                 <button
                   onClick={()=> handleAddToCart(item)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-auto">
+                  className="bg-red-500 hover:bg-red-700 focus:bg-red-800 text-white font-bold py-2 px-4 rounded ml-auto">
                     Add to Cart
                 </button>
               </div>
