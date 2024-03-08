@@ -1,0 +1,26 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.main-container {
+    height: 95vh;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+}
+
+.long-description {
+  height: 120px;
+}
+
+.checkout .menu {
+  width: 50%;
+}
+
+.menu {
+  overflow: scroll;
+  padding: 10px;
+}
