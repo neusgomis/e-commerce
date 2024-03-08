@@ -8,32 +8,31 @@ const initialState = {
   total: 0
 };
 
+/* Helper Function to Update Cart */
+function updateCartItems(cartItems, newItem, quantityChange) {
+  const existingItemIndex = cartItems.findIndex(item => item.name === newItem.name);
+  if (existingItemIndex !== -1) {
+    return cartItems.map((item, index) => {
+      if (index === existingItemIndex) {
+        return {...item, quantity: item.quantity + quantityChange };
+      }
+      return item;
+    });
+  } else {
+    return [...cartItems, {...newItem, quantity: 1 }];
+  }
+}
+
 function reducer(state, action) {
   switch (action.type) {
     case 'ADD_TO_CART':
-      const newItem = action.payload;
-      const existingItemIndex = state.cartItems.findIndex(item => item.name === newItem.name);
-      /* If the item being added is already in the cart, increase its quantity */
-      if (existingItemIndex !== -1) {
-        const updatedCartItems = state.cartItems.map((item, index) => {
-          if (index === existingItemIndex) {
-            return { ...item, quantity: item.quantity + 1 };
-          }
-          return item;
-        });
-        return {
-          ...state,
-          cartItems: updatedCartItems,
-          total: state.total + newItem.price
-        };
-      } else {
-        /* If not in the cart, set quantity to 1 and add to the list */
-        return {
-          ...state,
-          cartItems: [...state.cartItems, { ...newItem, quantity: 1 }],
-          total: state.total + newItem.price
-        };
-      }
+      const newItemToAdd = action.payload;
+      const addedItemPrice = newItemToAdd.price;
+      return {
+        ...state,
+        cartItems: updateCartItems(state.cartItems, newItemToAdd, 1),
+        total: state.total + addedItemPrice
+      };
     case 'REMOVE_FROM_CART':
       /* If item removed from cart decrease quantity */
       const updatedCartItems = state.cartItems.map(item => {
@@ -51,15 +50,12 @@ function reducer(state, action) {
       };
     case 'ADD_MORE_TO_CART':
       /* If extra item added increase quantity */
+      const newItemToAddMore = action.payload;
+      const addedItemPriceToAddMore = newItemToAddMore.price;
       return {
         ...state,
-        cartItems: state.cartItems.map(item => {
-          if (item.name === action.payload.name) {
-            return { ...item, quantity: (item.quantity || 1) + 1 }; // Increase quantity by 1, ensuring it's at least 1
-          }
-          return item;
-        }),
-        total: state.total + action.payload.price
+        cartItems: updateCartItems(state.cartItems, newItemToAddMore, 1),
+        total: state.total + addedItemPriceToAddMore
       };
     case 'RESET':
       /* Reset cart back to 0 */
